@@ -76,7 +76,7 @@ def resolver_BFS(origen, destino):
                 padre[(nx, ny)] = actual  # añadimos la coordenada valida en el diccionario padre para saber de donde vino
                 fifo.append((nx,ny)) # añadimos las coordenadas validas a la fifo
     
-    return None
+    return None # en caso de que no se encuentre el camino 
 
 origen = (0,0)
 destino = (9,9)

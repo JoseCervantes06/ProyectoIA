@@ -79,7 +79,7 @@ def solucionarDFS(origen, destino):
                 padre[(nx,ny)] = actual # guardamos de donde vino la coordenada
                 stack.append((nx,ny)) # agregamos el nuevo valor a la pila 
 
-    return False
+    return None
 
 # ------------------ Fin algoritmo DFS ----------------------------
 
@@ -89,15 +89,22 @@ def resolver():
     destino = (9,9)
     # Ruta de ejemplo (puedes reemplazarla con la salida de tu algoritmo BFS)
     ruta = solucionarDFS(origen, destino)
-    st.session_state['ruta'] = ruta
+    if ruta is not None:
+        st.session_state['ruta'] = ruta
+    else:
+        st.session_state['Sin camino'] = True
 
 def reiniciar():
     # Eliminar la ruta del estado de la sesión
     st.session_state.pop('ruta', None)
+    st.session_state.pop('Sin camino', None)
 
 # --- Inicialización del estado ---
 if 'ruta' not in st.session_state:
     st.session_state['ruta'] = None
+
+if 'Sin camino' not in st.session_state:
+    st.session_state['Sin camino'] = None
 
 # --- Creación del tablero con Plotly ---
 fig = go.Figure(data=go.Heatmap(
@@ -123,6 +130,9 @@ if st.session_state['ruta']:
         marker=dict(size=12, color='gold'),
         hoverinfo='none'
     ))
+
+
+
 
 # Configuración del diseño del gráfico
 fig.update_layout(
@@ -151,7 +161,10 @@ with st.container():
 
     with col2:
         st.plotly_chart(fig, use_container_width=False)
-    
+
+with st.container():
+    if st.session_state['Sin camino']:
+        st.error("No se encontro un camino hacia el destino")
 
 with st.container():
 # --- Sección de botones ---
