@@ -1,7 +1,7 @@
 from collections import deque
 
 
-mapa= [
+mapa = [
     [0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
     [1, 0, 0, 0, 0, 1, 0, 0, 0, 0],
     [0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
@@ -11,7 +11,7 @@ mapa= [
     [0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
     [0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
     [0, 0, 0, 1, 0, 0, 1, 0, 0, 0],
-    [1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1, 0, 0, 1, 0, 0],
 ]
 
 
@@ -52,7 +52,7 @@ def resolver_BFS(origen, destino):
 
     # mientras la fifo no este vacia
     while fifo: 
-        actual = fifo.popleft() # sacamos el ultimo elemento ingresado a la fifo
+        actual = fifo.popleft() # sacamos el primer elemento conforme se fueron añadiendo a la fifo
 
         # cuando ya encontremos el destino 
         if actual == destino:
