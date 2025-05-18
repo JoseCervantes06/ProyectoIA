@@ -5,7 +5,7 @@ import pandas as pd
 
 
 
-st.markdown("<h1 style='text-align: center;'>Algoritmo A*</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Algoritmo Hill Climbing</h1>", unsafe_allow_html=True)
 
 # --- NODOS: asignamos x, e y ---
 nodes = [
