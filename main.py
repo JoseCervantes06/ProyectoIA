@@ -10,7 +10,7 @@ pages = {
         st.Page("pages/a_estrella.py", title="Algoritmo A*"),
         st.Page("pages/hillClimbing.py", title="Algoritmo Hill Climbing"),
     ],
-    "Algoritmo para Toma de Deicisiones": [
+    "Algoritmo de Búsqueda Adversaria": [
         st.Page("pages/miniMax.py", title="Algortimo Minimax"),
         st.Page("pages/alfabeta.py", title="Algortimo Minimax con poda Alfa-Beta"),
     ],
