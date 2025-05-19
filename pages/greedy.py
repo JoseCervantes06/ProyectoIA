@@ -5,6 +5,19 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>Algoritmo Greedy</h1>", unsafe_allow_html=True)
 
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<h3>¿Qué es el algoritmo Greedy?</h3><br>
+El algoritmo <b>Greedy</b>, tambien conocido como algoritmo voraz, es una estrategia de busqueda informada, la cual consiste en elegir la opción mas optima en cada paso local con la posibilidad de llegar a la mejor solución. <br><br>
+            
+En resumen, toma decisiones en función de la información que esta disponible en el momento. Una vez que se toma la decisión no se vuelve a replantear en el futuro, esto hace que el algoritmo sea rapido y facil de implementar. Sin embargo, no siempre alcanza una solución optima global. <br><br>
+            
+En este ejemplo se utilizo un grafo ponderado para probar el algoritmo Greedy, en pocas palabras evalua solamente los vecinos del nodo actual y escoge el de menos peso en la arista. Repite lo mismo hasta encontrar la ciudad destino. 
+            
+
+</div>
+""", unsafe_allow_html=True)
 
 # --- NODOS: asignamos x, e y ---
 nodes = [

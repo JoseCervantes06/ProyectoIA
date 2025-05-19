@@ -7,7 +7,7 @@ st.markdown("<h1 style='text-align: center;'>Algoritmo DFS </h1>", unsafe_allow_
 st.markdown("""
 <div style='text-align: justify;'>
 <br>
-<b>¿Qué es el algoritmo DFS?</b><br>
+<h3>¿Qué es el algoritmo DFS?</h3><br>
 El algoritmo <b>DFS</b> (Depth First Search o Busqueda por Profundidad) se trata de un algoritmo de busqueda no informado. Su funcionamiento consiste en ir expandiendo todos y cada unos de los nodos que va localizando desde la raiz en un camino concreto. Cuando ya no quedan mas nodos que visitar en dicho camino, entonces regresa a la raiz de modo que repite el mismo proceso con cada uno de los hermanos del nodo ya procesado anteriormete. <br><br> 
             
 Este algoritmo utiliza una Stack de tipo LIFO ("Last in First Out") con el proposito de recorrer los caminos desde las raiz hasta las hojas. 

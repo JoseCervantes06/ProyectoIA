@@ -7,6 +7,65 @@ import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>Algoritmo A*</h1>", unsafe_allow_html=True)
 
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<h3>¿Qué es el algoritmo A*?</h3><br>
+El algoritmo de <b>Búsqueda A*</b>, se clasifica dentro de los algoritmos de busqueda en grafos de tipo heurístico o informado. <br><br>
+
+El problema de algunos algoritmos de busqueda en grafos como lo es el greedy, es que se guían solamente por el camino de menos corto a simple vista. Esto implicaría no encontrar el camino de coste más bajo. <br><br>
+            
+El algoritmo <strong>A*</strong> utiliza una función de evaluación 
+<strong>f(n) = g(n) + h′(n)</strong>, donde 
+<em>h′(n)</em> representa el valor heurístico del nodo a evaluar desde el actual, <em>n</em>, hasta el final, y 
+<em>g(n)</em> el coste real del camino recorrido para llegar a dicho nodo, <em>n</em>, desde el nodo inicial. <br><br>
+
+<strong>A*</strong> mantiene dos estructuras de datos auxiliares, que podemos denominar <em>abiertos</em> y <em>cerrados</em>. 
+<em>Abiertos</em> se implementa como una cola de prioridad, ordenada por el valor <strong>f(n)</strong> de cada nodo, y <em>cerrados</em> almacena la información de los nodos que ya han sido visitados. <br><br>
+
+Es importante tomar en cuenta que para garantizar la optimización del algoritmo, la función <strong>h(n)</strong> debe ser una heurística <em>admisible</em>, es decir, que no sobrestime el coste real de alcanzar el nodo objetivo.   
+
+<section>
+  <h3>¿A* recorre nodos innecesarios?</h3>
+  <h4>1. Caso Ideal</h4>
+  <ul>
+    <li>
+      <strong>Descubrir</strong> un nodo meta:  
+      Generarlo como vecino de otro nodo e insertarlo en <em>la cola de prioridad</em> con su valor <code>f = g + h</code>.
+    </li>
+    <li>
+      <strong>Expandir</strong> un nodo meta:  
+      Sacarlo de la <em>cola de prioridad</em> (con <code>heapq.heappop</code>), marcarlo como visitado y comprobar si es el objetivo.  
+      <strong>¡Aquí A* termina!</strong>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h4>2. ¿Qué ocurre si descubro el nodo meta con un valor <code>f</code> alto?</h4>
+  <ul>
+    <li>
+      Al descubrir el nodo meta, lo insertas en la <em>cola prioridad</em>, pero pueden existir otros nodos con <code>f</code> menor, por lo que no se extrae de inmediato.
+    </li>
+    <li>
+      A* continúa expandiendo aquellos nodos en la <em>cola de prioridad</em> que tengan valores <code>f</code> más bajos.
+    </li>
+    <li>
+      Si más adelante encuentras un camino más corto hasta el mismo nodo meta, su <code>g</code> (y por tanto su <code>f</code>) disminuyen:
+      <ul>
+        <li>Actualizas su entrada en la <em>cola de prioridad</em> con su nuevo valor <code>f</code></li>
+        <li>Pasará a estar por delante de otros nodos con <code>f</code> mayor.</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+<p><b>Nota Importante: </b><strong>A*</strong> no termina al descubrir el nodo meta, sino <em>cuando lo extrae de la cola de prioridad</em>, garantizando que no existan rutas con <code>f</code> menor sin explorar.</p>
+     
+
+</div>
+""", unsafe_allow_html=True)
+
 # --- NODOS: asignamos x, e y ---
 nodes = [
     Node(
