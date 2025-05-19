@@ -113,6 +113,16 @@ def reiniciar():
 st.markdown("<h2 style='text-align:center;'>Tic-Tac-Toe (Gato) con poda Alfa-Beta — Tú eres X</h2>",
             unsafe_allow_html=True)
 
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<h3>¿Qué es el algoritmo Minimax con poda alfa-beta?</h3><br>
+La poda alfa-beta es otra técnica de busqueda adicional que reduce el número de nodos evaluados en un árbol de juego hecho por el algoritmo Minimax. Es conveniente utilizarlo en juegos entre adversarios como ajedrez.  <br><br>
+
+<h3>Tú eres X</h3>
+</div>
+""", unsafe_allow_html=True)
+
 # ----------- Cuadrícula de botones (inputs) ----------------------
 for r in range(3):
     cols = st.columns(3, gap="small")

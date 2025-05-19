@@ -96,8 +96,38 @@ def reiniciar():
     st.session_state.message = ""
     st.session_state.hojas = 0
 
-st.markdown("<h2 style='text-align:center;'>Tic-Tac-Toe (Gato) con Minimax — Tú eres X</h2>",
+st.markdown("<h2 style='text-align:center;'>Tic-Tac-Toe (Gato) con Minimax</h2>",
             unsafe_allow_html=True)
+
+
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<h3>¿Qué es el algoritmo Minimax?</h3><br>
+En teoría de juegos <strong>Minimax</strong> es un metodo de decisión para minizar la pérdida maxima esperada en juegos con adversario y con una información perfecta. Es un claro ejemplo de recursividad. El funcionamiento de minimax puedes resumirse en que eligues el mejor movimiento para ti mismo suponiendo que el contrincante escogerá el peor para ti.  <br><br>
+
+<section>
+  <h3>¿Cómo funciona Minimax?</h3>
+  <ul>
+    <li>
+      <strong>Generacióm del árbol de juego</strong>.
+      Se generán todos los nodos hasta llegar a un estado terminal
+    </li>
+    <li>
+      <strong>Cálculo de los valors de la función de utilidad para cada nodo</strong>.  
+    </li>
+    <li>
+      <strong>Calcular el valor de los nodos superiores a partir del valor de los inferiores</strong>. Según el nivel si es MAX o MIN se elegirán los valores minimos y máximos representando los movimientos del jugador y del oponente. 
+    </li>
+    <li>
+      <strong>Elegir la jugada valorando los valores que ha llegado al nivel superior</strong>.
+    </li>
+   </ul>
+</section> <br></br>
+
+<h3>Tú eres X</h3>
+</div>
+""", unsafe_allow_html=True)
 
 # ----------- Cuadrícula de botones (inputs) ----------------------
 for r in range(3):
