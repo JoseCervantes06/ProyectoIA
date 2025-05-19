@@ -110,7 +110,7 @@ def reiniciar():
     st.session_state.message = ""
     st.session_state.hojas = 0
 
-st.markdown("<h2 style='text-align:center;'>Tic-Tac-Toe (Gato) — Tú eres X</h2>",
+st.markdown("<h2 style='text-align:center;'>Tic-Tac-Toe (Gato) con poda Alfa-Beta — Tú eres X</h2>",
             unsafe_allow_html=True)
 
 # ----------- Cuadrícula de botones (inputs) ----------------------
@@ -149,5 +149,5 @@ st.table(pd.DataFrame(tabla_vista))
 if st.session_state.message:
     st.success(st.session_state.message)
 
-st.write(f"🌳 Hojas evaluadas con poda alfa-beta: **{st.session_state.hojas}**")
+st.write(f"Hojas evaluadas con poda alfa-beta: **{st.session_state.hojas}**")
 st.button("Reiniciar partida", on_click=reiniciar, type="primary")
