@@ -3,8 +3,18 @@ import plotly.graph_objects as go
 from collections import deque
 
 st.markdown("<h1 style='text-align: center;'>Algoritmo DFS </h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>(Busqueda por Profundidad) </h2>", unsafe_allow_html=True)
 
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<b>¿Qué es el algoritmo DFS?</b><br>
+El algoritmo <b>DFS</b> (Depth First Search o Busqueda por Profundidad) se trata de un algoritmo de busqueda no informado. Su funcionamiento consiste en ir expandiendo todos y cada unos de los nodos que va localizando desde la raiz en un camino concreto. Cuando ya no quedan mas nodos que visitar en dicho camino, entonces regresa a la raiz de modo que repite el mismo proceso con cada uno de los hermanos del nodo ya procesado anteriormete. <br><br> 
+            
+Este algoritmo utiliza una Stack de tipo LIFO ("Last in First Out") con el proposito de recorrer los caminos desde las raiz hasta las hojas. 
+<br><br>
+En este caso, se aplica sobre un mapa parecido al juego de Frozen Lake donde <span style='color:#e07a5f;'>las celdas rojas representan obstáculos</span> y <span style='color:#6c9a8b;'>las verdes caminos transitables</span>.
+</div>
+""", unsafe_allow_html=True)
 
 # --- Definición del tablero ---
 mapa = [

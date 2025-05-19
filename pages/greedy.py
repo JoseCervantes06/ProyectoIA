@@ -4,85 +4,84 @@ import heapq
 import pandas as pd
 
 st.markdown("<h1 style='text-align: center;'>Algoritmo Greedy</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>Best-First Search</h2>", unsafe_allow_html=True)
 
 
 # --- NODOS: asignamos x, e y ---
 nodes = [
     Node(
-        id="Arad", label="Arad\nh(A)=366",
+        id="Arad", label="Arad",
         x=-800, y=0,                       # posición en el eje X, Y
         size=30, color="green",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Zerind", label="Zerind\nh(Z)=374",
+        id="Zerind", label="Zerind",
         x=-750, y=-250,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Sibiu", label="Sibiu\nh(S)=253",
+        id="Sibiu", label="Sibiu",
         x=-300, y=100,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Timisoara", label="Timisoara\nh(T)=329",
+        id="Timisoara", label="Timisoara",
         x=-760, y=300,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Oradea", label="Oradea\nh(O)=380",
+        id="Oradea", label="Oradea",
         x=-650, y=-500,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Lugoj", label="Lugoj\nh(L)=244",
+        id="Lugoj", label="Lugoj",
         x=-425, y=410,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Mehadia", label="Mehadia\nh(M)=241",
+        id="Mehadia", label="Mehadia",
         x=-390, y=650,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Drobeta", label="Drobeta\nh(D)=242",
+        id="Drobeta", label="Drobeta",
         x=-400, y=890,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Craiova", label="Craiovah\nh(C)=160",
+        id="Craiova", label="Craiova",
         x=100, y=900,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="RV", label="Rimnicu Vilcea\nh(RV)=193",
+        id="RV", label="Rimnicu Vilcea",
         x=-100, y=300,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Fagaras", label="Fagaras\nh(F)=176",
+        id="Fagaras", label="Fagaras",
         x=200, y=120,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Pitesti", label="Pitesti\nh(P)=100",
+        id="Pitesti", label="Pitesti",
         x=350, y=500,
         size=30, color="steelblue",
         font={"color": "white", "size": 31}
     ),
     Node(
-        id="Bucharest", label="Bucharest\nh(B)=0",
+        id="Bucharest", label="Bucharest",
         x=750, y=670,
         size=30, color="green",
         font={"color": "white", "size": 31}
@@ -91,22 +90,22 @@ nodes = [
 
 # --- ARISTAS: etiquetas de peso ---
 edges = [
-    Edge(source="Arad", target="Zerind", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Arad", target="Sibiu", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Arad", target="Timisoara", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Zerind", target="Oradea", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Oradea", target="Sibiu", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Timisoara", target="Lugoj", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Lugoj", target="Mehadia", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Mehadia", target="Drobeta", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Drobeta", target="Craiova", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Sibiu", target="RV", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="RV", target="Craiova", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Sibiu", target="Fagaras", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="RV", target="Pitesti", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Craiova", target="Pitesti", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Pitesti", target="Bucharest", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
-    Edge(source="Fagaras", target="Bucharest", width=3, color="#FEC38D", font={"size":30, "strokeWidth": 0, "color":"white"}),
+    Edge(source="Arad", target="Zerind", label="75", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Arad", target="Sibiu", label="140", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Arad", target="Timisoara", label="118", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Zerind", target="Oradea", label="71", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Oradea", target="Sibiu", label="151", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Timisoara", target="Lugoj", label="111", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Lugoj", target="Mehadia", label="70", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Mehadia", target="Drobeta", label="75", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Drobeta", target="Craiova", label="120", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Sibiu", target="RV", label="80", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="RV", target="Craiova", label="146", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Sibiu", target="Fagaras", label="99", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="RV", target="Pitesti", label="97", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Craiova", target="Pitesti", label="138", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Pitesti", target="Bucharest", label="101", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Fagaras", target="Bucharest", label="211", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
 ]
 
 # Configuración: podemos desactivar la física global si queremos
@@ -151,41 +150,43 @@ ciudades = {
     "Bucharest": []
 }
 
-heuristica = {
-     "Arad": 366,
-     "Zerind": 374,
-     "Sibiu": 253,
-     "Timisoara": 329,
-     "Oradea": 380,
-     "Lugoj": 244,
-     "Mehadia": 241,
-     "Drobeta": 242,
-     "Craiova": 160,
-     "RV": 193,
-     "Pitesti": 100,
-     "Fagaras": 176,
-     "Bucharest": 0
+
+mapa = {
+    "Arad": {"Zerind": 75, "Sibiu": 140, "Timisoara": 118},
+    "Zerind": {"Oradea": 71, "Arad": 75},
+    "Timisoara": {"Arad": 118, "Lugoj": 111},
+    "Sibiu": {"Fagaras": 99, "RV": 80, "Oradea": 151, "Arad": 140},
+    "Oradea": {"Sibiu": 151, "Zerind": 71},
+    "Lugoj": {"Mehadia": 70, "Timisoara": 111},
+    "Fagaras": {"Sibiu": 99, "Bucharest": 211},
+    "RV": {"Sibiu": 80, "Pitesti": 97, "Craiova": 146},
+    "Mehadia": {"Drobeta": 75, "Lugoj": 70},
+    "Pitesti": {"Bucharest": 101, "RV": 97, "Craiova": 138},
+    "Craiova": {"Pitesti": 138, "RV": 146, "Drobeta": 120},
+    "Drobeta": {"Mehadia": 75, "Craiova": 120},
+    "Bucharest": {}  # No tiene conexiones 
 }
 
 # ----------------------- Algortimo Greedy ----------------------------------------
 class Nodo:
-    def __init__(self, nombre, heuristica):
+    def __init__(self, nombre, costo):
         self.name = nombre
-        self.heuristica = heuristica
+        self.costo = costo
     def __lt__(self, other):
-        return self.heuristica < other.heuristica 
+        return self.costo < other.costo 
     
-def solucion_greedy(grafo, inicio, meta, heuristica):
+def solucion_greedy(grafo, inicio, meta, mapa):
     cola_prioridad = [] # Se inicializa la cola de prioridad 
-    nodoIncial = Nodo(inicio, heuristica[inicio]) # Se crea el nodo inicial de Arad con respectiva heuristica 
+    nodoIncial = Nodo(inicio, 0) # Se crea el nodo inicial de Arad con respectiva distancias 
     heapq.heappush(cola_prioridad, nodoIncial) # Se agrega Arad a la cola de prioridad
 
     visitados = set() # Set para llevar un control sobre los visitados y evitar ciclos repetidos
     camino = [] # Se inicializa el arreglo que llevara el camino hasta Bucharest 
 
     while cola_prioridad:
-        nodo_actual = heapq.heappop(cola_prioridad) # Pop del nodo con menor valor en la heuristica
+        nodo_actual = heapq.heappop(cola_prioridad) # Pop del nodo con menor valor en la distancias
 
+        cola_prioridad.clear()
 
         # Se van añadiendo los nodos al arreglo del camino
         if nodo_actual.name not in camino:
@@ -193,19 +194,18 @@ def solucion_greedy(grafo, inicio, meta, heuristica):
 
         # Verificamos si el nodo actual es la meta
         if nodo_actual.name == meta:
-            datos_camino = [(ciudad, heuristica[ciudad]) for ciudad in camino] # Tupla para poder representar la ciudad con su heuristica
-            return camino, datos_camino, 
+            return camino 
         
         visitados.add(nodo_actual.name) # Se van añadiendo al arreglo de visitados 
 
         # se recorren vecinos del nodo actual 
         for vecino in grafo[nodo_actual.name]:
             if vecino not in visitados:
-                nuevoNodo = Nodo(vecino, heuristica[vecino]) # se crea el nodo del vecino 
+                costo = mapa[nodo_actual.name][vecino]
+                nuevoNodo = Nodo(vecino, costo) # se crea el nodo del vecino 
                 heapq.heappush(cola_prioridad, nuevoNodo)  # se agrega nodo a la cola de prioridad y se acomoda automaticamente
                 
     return None
-
 
 
 # -----------------------------Fin Algoritmo Greedy----------------------------------------------
@@ -214,8 +214,8 @@ def solucion_greedy(grafo, inicio, meta, heuristica):
 # --- Funciones de callback ---
 def resolver_ruta():
     # Calculas y guardas la solución en el estado
-    camino, datos_ruta = solucion_greedy(ciudades, "Arad", "Bucharest", heuristica)
-    st.session_state['solucion'] = (camino, datos_ruta)
+    camino = solucion_greedy(ciudades, "Arad", "Bucharest", mapa)
+    st.session_state['solucion'] = camino
     st.session_state['camino_encontrado'] = camino
 
 def reiniciar():
@@ -308,11 +308,7 @@ resultado_slot = st.empty()
 if 'solucion' in st.session_state:
     with resultado_slot.container():
         st.subheader("Solución encontrada")
-        camino, datos_ruta = st.session_state['solucion']
+        camino = st.session_state['solucion']
         
-        # Crear DataFrame para mostrar la tabla
-        df = pd.DataFrame(datos_ruta, columns=["Ciudad", "Heurística (h)"])
-        
-        # Mostrar tabla con estilo
-        st.dataframe(df.style.format({"Heurística (h)": "{:.0f}"}), 
-                    use_container_width=True)
+        df = pd.DataFrame(camino, columns=["Ciudad"])
+        st.dataframe(df, use_container_width=True)

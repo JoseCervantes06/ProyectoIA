@@ -4,7 +4,18 @@ from collections import deque
 
 
 st.markdown("<h1 style='text-align: center;'>Algoritmo BFS </h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center;'>(Busqueda por Anchura) </h2>", unsafe_allow_html=True)
+
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<b>¿Qué es el algoritmo BFS?</b><br>
+El algoritmo <b>BFS</b> (Breadth-First Search o Búsqueda por Anchura) se trata de un algoritmo de busqueda no iformado utilizado para recorrer o buscar elementos en estructuras como grafos o mapas. Partiendo desde un nodo raiz explora todos los nodos vecinos de un punto antes de pasar al siguiente nivel, lo que garantiza encontrar la ruta más corta (en cantidad de pasos) en un entorno sin pesos, o bien que  en un mapa cada movimiento tenga el mismo peso o en un grafo cada arista tenga el mismo el valor.<br><br>
+
+Este algoritmo utiliza una Queue de tipo FIFO (First In First Out) con el proposito de poder recorrer el arbol por niveles, una vez que recorre un nivel entonces pasa al siguiente y asi sucesivament hasta llegar a las hojas. 
+            
+En este caso, se aplica sobre un mapa parecido al juego de Frozen Lake donde <span style='color:#e07a5f;'>las celdas rojas representan obstáculos</span> y <span style='color:#6c9a8b;'>las verdes caminos transitables</span>.
+</div>
+""", unsafe_allow_html=True)
 
 # --- Definición del tablero ---
 mapa = [
@@ -60,7 +71,7 @@ def resolver_BFS(origen, destino):
 
     # mientras la fifo no este vacia
     while fifo: 
-        actual = fifo.popleft() # sacamos el ultimo elemento ingresado a la fifo
+        actual = fifo.popleft() # sacamos el ultimo elemento ingresado a la fifo conforme llego a la cola
 
         # cuando ya encontremos el destino 
         if actual == destino:

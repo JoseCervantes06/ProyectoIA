@@ -1,11 +1,11 @@
 import streamlit as st
 
 pages = {
-    "Algoritmos de Busqueda": [
+    "Algoritmos de Busqueda no Informados": [
         st.Page("pages/BFS.py", title="Algoritmo BFS"), # Algoritmo de Busqueda por Anchura
         st.Page("pages/DFS.py", title="Algoritmo DFS"), # Algoritmo de Busqueda por Profundidad 
     ],
-    "Algoritmos Informados":[
+    "Algoritmos de Busqueda Informados":[
         st.Page("pages/greedy.py", title="Algortimo Greedy"),
         st.Page("pages/a_estrella.py", title="Algoritmo A*"),
         st.Page("pages/hillClimbing.py", title="Algoritmo Hill Climbing"),

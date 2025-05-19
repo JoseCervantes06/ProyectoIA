@@ -16,23 +16,8 @@ ciudades = {
     "Bucharest": []
 }
 
-heuristica = {
-     "Arad": 366,
-     "Zerind": 374,
-     "Sibiu": 253,
-     "Timisoara": 329,
-     "Oradea": 380,
-     "Lugoj": 244,
-     "Mehadia": 241,
-     "Drobeta": 242,
-     "Craiova": 160,
-     "RV": 193,
-     "Pitesti": 100,
-     "Fagaras": 176,
-     "Bucharest": 0
-}
 
-distancias = {
+mapa = {
     "Arad": {"Zerind": 75, "Sibiu": 140, "Timisoara": 118},
     "Zerind": {"Oradea": 71, "Arad": 75},
     "Timisoara": {"Arad": 118, "Lugoj": 111},
@@ -50,24 +35,23 @@ distancias = {
 
 # ----------------------- Algortimo Greedy ----------------------------------------
 class Nodo:
-    def __init__(self, nombre, heuristica):
+    def __init__(self, nombre, costo):
         self.name = nombre
-        self.heuristica = heuristica
+        self.costo = costo
     def __lt__(self, other):
-        return self.heuristica < other.heuristica 
+        return self.costo < other.costo 
     
-def solucion_greedy(grafo, inicio, meta, heuristica):
+def solucion_greedy(grafo, inicio, meta, mapa):
     cola_prioridad = [] # Se inicializa la cola de prioridad 
-    nodoIncial = Nodo(inicio, heuristica[inicio]) # Se crea el nodo inicial de Arad con respectiva heuristica 
+    nodoIncial = Nodo(inicio, 0) # Se crea el nodo inicial de Arad con respectiva distancias 
     heapq.heappush(cola_prioridad, nodoIncial) # Se agrega Arad a la cola de prioridad
 
     visitados = set() # Set para llevar un control sobre los visitados y evitar ciclos repetidos
     camino = [] # Se inicializa el arreglo que llevara el camino hasta Bucharest 
 
     while cola_prioridad:
-        nodo_actual = heapq.heappop(cola_prioridad) # Pop del nodo con menor valor en la heuristica
-        print(f"El nodo actual es {nodo_actual.name} con heuristica {nodo_actual.heuristica}")
-
+        nodo_actual = heapq.heappop(cola_prioridad) # Pop del nodo con menor valor en la distancias
+        cola_prioridad.clear()
 
         # Se van añadiendo los nodos al arreglo del camino
         if nodo_actual.name not in camino:
@@ -75,20 +59,20 @@ def solucion_greedy(grafo, inicio, meta, heuristica):
 
         # Verificamos si el nodo actual es la meta
         if nodo_actual.name == meta:
-            datos_camino = [(ciudad, heuristica[ciudad]) for ciudad in camino] # Tupla para poder representar la ciudad con su heuristica
-            return camino, datos_camino, 
+            return print(camino) 
         
         visitados.add(nodo_actual.name) # Se van añadiendo al arreglo de visitados 
 
         # se recorren vecinos del nodo actual 
         for vecino in grafo[nodo_actual.name]:
             if vecino not in visitados:
-                nuevoNodo = Nodo(vecino, heuristica[vecino]) # se crea el nodo del vecino 
+                costo = mapa[nodo_actual.name][vecino]
+                nuevoNodo = Nodo(vecino, costo) # se crea el nodo del vecino 
                 heapq.heappush(cola_prioridad, nuevoNodo)  # se agrega nodo a la cola de prioridad y se acomoda automaticamente
                 
     return None
 
 
-sol = print(solucion_greedy(ciudades, "Arad", "Bucharest", heuristica))
+sol = solucion_greedy(ciudades, "Arad", "Bucharest", mapa)
 # -----------------------------Fin Algoritmo Greedy----------------------------------------------
 
