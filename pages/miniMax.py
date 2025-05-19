@@ -28,7 +28,11 @@ def evaluar(tablero):
         return 0
     return None                     # no terminal
 
+# Contador de hojas
+hojas_contadas = 0
+
 def generarArbol(n, nodito):
+    global hojas_contadas
     for i in range(3):
         for j in range(3):
             if nodito.tablero[i][j] == 0:       # Casilla libre
@@ -36,11 +40,12 @@ def generarArbol(n, nodito):
                 nuevoTablero[i][j] = 1 if (n % 2 == 1) else -1
                 valorNodo = evaluar(nuevoTablero)
                 nodito.hijos.append(Nodo(nuevoTablero, valor=valorNodo))
+                if valorNodo is not None:      # Si es hoja, la contamos
+                    hojas_contadas += 1
     for hijo in nodito.hijos:
         if hijo.valor is None:
             generarArbol(n + 1, hijo)
     return nodito
-
 
 def minimax(nodo, es_maximizador):
     # Hoja
@@ -59,28 +64,24 @@ def minimax(nodo, es_maximizador):
     return nodo.valor
 
 def mejor_jugada(tablero_actual, turno_maquina=-1):
-    """
-    Devuelve (fila, col) para la mejor jugada de la máquina (O = -1).
-    turno_maquina debe ser -1 (MIN).  El jugador humano es X = 1 (MAX).
-    """
-    # Determinar qué profundidad (n) toca:  1=X, 2=O, 3=X...
+    global hojas_contadas
+    hojas_contadas = 0  # Reiniciar el contador de hojas
     jugados = sum(1 for i in range(3) for j in range(3) if tablero_actual[i][j] != 0)
-    n_inicial = jugados + 1                       # turno que se va a jugar
+    n_inicial = jugados + 1
     raiz = Nodo([fila[:] for fila in tablero_actual])
-    generarArbol(n_inicial, raiz)                 # genera árbol desde el estado actual
+    generarArbol(n_inicial, raiz)   # genera árbol desde el estado actual
     minimax(raiz, es_maximizador=(turno_maquina == 1))
     # Elegir el primer hijo óptimo para O (MIN => valor mínimo)
     objetivo = min(h.valor for h in raiz.hijos)
     for h in raiz.hijos:
         if h.valor == objetivo:
-            # Encuentra dónde difiere
             for i in range(3):
                 for j in range(3):
                     if tablero_actual[i][j] != h.tablero[i][j]:
                         return i, j
     return None
 
-#  Streamlit
+# ------------------- Streamlit ----------------------
 
 st.set_page_config(page_title="Gato contra la máquina")
 
@@ -88,10 +89,12 @@ st.set_page_config(page_title="Gato contra la máquina")
 if "board" not in st.session_state:
     st.session_state.board = [[0]*3 for _ in range(3)]   # 0=vacío, 1=X, -1=O
     st.session_state.message = ""
+    st.session_state.hojas = 0
 
 def reiniciar():
     st.session_state.board = [[0]*3 for _ in range(3)]
     st.session_state.message = ""
+    st.session_state.hojas = 0
 
 st.markdown("<h2 style='text-align:center;'>Tic-Tac-Toe (Gato) — Tú eres X</h2>",
             unsafe_allow_html=True)
@@ -112,6 +115,7 @@ for r in range(3):
                 else:
                     # 2) Turno de la máquina (O)
                     mov = mejor_jugada(st.session_state.board, turno_maquina=-1)
+                    st.session_state.hojas = hojas_contadas  # Guardar las hojas calculadas
                     if mov:
                         i, j = mov
                         st.session_state.board[i][j] = -1
@@ -132,4 +136,5 @@ st.table(pd.DataFrame(tabla_vista))
 if st.session_state.message:
     st.success(st.session_state.message)
 
+st.write(f" Hojas calculadas en el árbol: **{st.session_state.hojas}**")
 st.button("Reiniciar partida", on_click=reiniciar, type="primary")
