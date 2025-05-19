@@ -12,6 +12,7 @@ pages = {
     ],
     "Algoritmo para Toma de Deicisiones": [
         st.Page("pages/miniMax.py", title="Algortimo Minimax"),
+        st.Page("pages/alfabeta.py", title="Algortimo Minimax con poda Alfa-Beta"),
     ],
 }
 
