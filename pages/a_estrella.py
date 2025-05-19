@@ -11,9 +11,9 @@ st.markdown("""
 <div style='text-align: justify;'>
 <br>
 <h3>¿Qué es el algoritmo A*?</h3><br>
-El algoritmo de <b>Búsqueda A*</b>, se clasifica dentro de los algoritmos de busqueda en grafos de tipo heurístico o informado. <br><br>
+El algoritmo de <b>Búsqueda A*</b>, se clasifica dentro de los algoritmos de busqueda en grafos de tipo heurístico no informado. <br><br>
 
-El problema de algunos algoritmos de busqueda en grafos como lo es el greedy, es que se guían solamente por el camino de menos corto a simple vista. Esto implicaría no encontrar el camino de coste más bajo. <br><br>
+El problema de algunos algoritmos de busqueda en grafos como lo es el greedy, es que se guían solamente por el camino menos corto a simple vista. Esto implicaría no encontrar el camino de coste más bajo. <br><br>
             
 El algoritmo <strong>A*</strong> utiliza una función de evaluación 
 <strong>f(n) = g(n) + h′(n)</strong>, donde 

@@ -2,17 +2,31 @@ import streamlit as st
 from streamlit_agraph import agraph, Node, Edge, Config
 import heapq
 import pandas as pd
+import random
 
 
 
 st.markdown("<h1 style='text-align: center;'>Algoritmo Hill Climbing</h1>", unsafe_allow_html=True)
+
+
+st.markdown("""
+<div style='text-align: justify;'>
+<br>
+<h3>¿Qué es el algoritmo Hill Climbing?</h3><br>
+Tambien conocido como <strong>Algoritmo de Escalada Simple</strong> o <strong>Ascenso de Colinas</strong> es una tecnica de optimización perteneciente a la familia de algoritmos de busqueda local. Es un algoritmo iterativo que comienza en un nodo aleatorio, luego intenta encontar una mejor solución, es decir una mejor heurística que la del nodo actual. Si se encuentra una mejor solución, se vuelve a buscar otro cambio que sea mejor al actual, repitiendose este proceso hasta no se pueda encontrar mejoras. <br><br>
+
+Usualmente el algoritmo <strong>Hill Climbing</strong> se utiliza para encontrar un óptimo local (una solución que ya no se puede mejorar) pero no garantiza encontrar siempre la mejor solución posible (óptimo global) de todas las posibles soluciones. <br><br>
+
+</div>
+""", unsafe_allow_html=True)
+
 
 # --- NODOS: asignamos x, e y ---
 nodes = [
     Node(
         id="Arad", label="Arad\nh(A)=366",
         x=-800, y=0,                       # posición en el eje X, Y
-        size=30, color="green",
+        size=30, color="steelblue",
         font={"color": "white", "size": 27}
     ),
     Node(
@@ -84,29 +98,29 @@ nodes = [
     Node(
         id="Bucharest", label="Bucharest\nh(B)=0",
         x=750, y=670,
-        size=30, color="green",
+        size=30, color="red",
         font={"color": "white", "size": 27}
     ),
 ]
 
 # --- ARISTAS: etiquetas de peso ---
 edges = [
-    Edge(source="Arad", target="Zerind", label="75", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Arad", target="Sibiu", label="140", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Arad", target="Timisoara", label="118", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Zerind", target="Oradea", label="71", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Oradea", target="Sibiu", label="151", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Timisoara", target="Lugoj", label="111", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Lugoj", target="Mehadia", label="70", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Mehadia", target="Drobeta", label="75", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Drobeta", target="Craiova", label="120", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Sibiu", target="RV", label="80", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="RV", target="Craiova", label="146", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Sibiu", target="Fagaras", label="99", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="RV", target="Pitesti", label="97", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Craiova", target="Pitesti", label="138", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Pitesti", target="Bucharest", label="101", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
-    Edge(source="Fagaras", target="Bucharest", label="211", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Arad", target="Zerind", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Arad", target="Sibiu", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Arad", target="Timisoara", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Zerind", target="Oradea", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Oradea", target="Sibiu", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Timisoara", target="Lugoj", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Lugoj", target="Mehadia", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Mehadia", target="Drobeta", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Drobeta", target="Craiova", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Sibiu", target="RV", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="RV", target="Craiova", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Sibiu", target="Fagaras", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="RV", target="Pitesti", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Craiova", target="Pitesti", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Pitesti", target="Bucharest", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
+    Edge(source="Fagaras", target="Bucharest", label="", width=2, color="#FEC38D", font={"size":30, "strokeWidth": 15, "color":"black"}),
 ]
 
 # Configuración: podemos desactivar la física global si queremos
@@ -183,14 +197,14 @@ def solucionHillClimbing(grafo, inicio, meta, heuristica):
 
         # en caso de que ya no haya mas camino
         if not vecinos:
-            return nodo_actual # devolvemos el nodo en que nos quedamos 
+            return camino # devolvemos el nodo en que nos quedamos 
         
         # comparamos los vecinos y sacamos el de menor valor heuristico
         mejor_vecino = min(vecinos, key = lambda ciudad: heuristica[ciudad])
 
         # aqui es el punto clave de hill Climbing porque se intenta encontrar una heuristica mas baja que la actual 
         if heuristica[mejor_vecino] >= heuristica[nodo_actual]:
-            return nodo_actual # marcamos que no se pudo llegar a la meta porque se quedo en un punto optimo local 
+            return camino # marcamos que no se pudo llegar a la meta porque se quedo en un punto optimo local 
         
         camino.append(mejor_vecino) # en caso de que si haya una mejor opcion entonces lo añadimos a arreglo camino
         nodo_actual = mejor_vecino # actualizamos el nodo acutal al mejor vecino que se encontro 
@@ -201,7 +215,8 @@ def solucionHillClimbing(grafo, inicio, meta, heuristica):
 # --- Funciones de callback ---
 def resolver_ruta():
     # Calculas y guardas la solución en el estado
-    camino = solucionHillClimbing(ciudades, "Arad", "Bucharest", heuristica)
+    ciudad_aleatoria = random.choice(list(ciudades.keys()))
+    camino = solucionHillClimbing(ciudades, ciudad_aleatoria, "Bucharest", heuristica)
     st.session_state['solucion'] = (camino)
     st.session_state['camino_encontrado'] = camino
 
@@ -281,7 +296,7 @@ with st.container():
 
         with col1:
             st.button(
-                "Resolver ruta Arad -> Bucharest",
+                "Resolver ruta a Bucharest",
                 key=None,
                 on_click=resolver_ruta,
                 use_container_width=True,
@@ -297,19 +312,16 @@ with st.container():
 # --- Contenedor para la solución ---
 resultado_slot = st.empty()
 
-# --- Mostrar solución si existe ---
 if 'solucion' in st.session_state:
-    with st.container():
-        st.subheader("Solución encontrada")
-        camino = st.session_state['solucion']
-        
-        # Crear un contenedor centrado con ancho específico
-        col1, col2, col3 = st.columns([1, 3, 1])  # Columnas para centrado (1 | 3 | 1)
-        
-        with col2:  # Columna central (la que contiene la tabla)
-            # DataFrame con estilo
-            df = pd.DataFrame(camino, columns=["Ciudad"])
-            
-            # Usar st.table para mejor control del ancho (opcional)
-            st.table(df)
-            
+    camino = st.session_state['solucion']
+    
+    # Si el último nodo NO es Bucharest, es un óptimo local
+    if camino[-1] != "Bucharest":
+        st.error(f"¡Se alcanzó un óptimo local en {camino[-1]}!")
+    else:
+        st.success("¡Llegaste a Bucharest!")
+    
+    # Mostrar siempre el recorrido encontrado
+    st.subheader("Recorrido ejecutado")
+    df = pd.DataFrame(camino, columns=["Ciudad"])
+    st.table(df)
